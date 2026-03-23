@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basic Horoscope — JyotishMitra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container">
+    <div class="nav">
+      <div class="brand-left">
+        <a href="index.html" class="logo">Jyotish <span class="accent">Mitra</span></a>
+        <a class="btn btn-primary nav-cta" href="services.html">Get Kundali</a>
+      </div>
+      <div class="menu-wrap">
+        <button class="menu-btn" id="menuBtn" type="button">☰</button>
+        <div class="menu-dropdown" id="menuDropdown">
+          <a class="menu-link" href="index.html">Home</a>
+          <div class="submenu-toggle" id="servicesToggle">Services <span>▾</span></div>
+          <div class="menu-sub" id="servicesSub">
+            <a class="menu-link" href="product-mini.html">Mini Horoscope</a>
+            <a class="menu-link" href="product-basic.html">Basic Horoscope</a>
+            <a class="menu-link" href="product-professional.html">Professional Horoscope</a>
+            <a class="menu-link" href="product-matchmaking.html">Match Making Horoscope</a>
+          </div>
+          <a class="menu-link" href="blogs.html">Blogs</a>
+          <a class="menu-link" href="about.html">About Us</a>
+          <a class="menu-link" href="contact.html">Contact</a>
+          <a class="menu-link" href="reports.html">My Reports</a>
+          <a class="menu-link" href="privacy-policy.html">Privacy Policy</a>
+          <a class="menu-link" href="terms-and-conditions.html">Terms & Conditions</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<main><section class="section"><div class="container hero-shell">
+<div class="hero-copy">
+<div class="section-kicker">Premium Product</div>
+<h1>Basic Horoscope</h1>
+<p class="lead">Balanced report with more detail across key life areas.</p>
+<div class="notice">Product-specific languages are now limited correctly for this product.</div>
+<div class="card" style="margin-top:20px"><div class="top"><div class="icon-box">🪐</div><div class="price">₹499</div></div>
+<div class="points"><span>User fills full details first</span><span>Then payment</span><span>Location search + map support</span></div></div>
+</div>
+<div class="hero-form"><div class="form-card">
+<div class="form-head"><div class="form-title">Complete your details<small>Fill everything first, then pay</small></div><div class="secure">Secure</div></div>
+<form>
+<div class="grid grid-2">
+<div class="field"><label>Full Name</label><input></div>
+<div class="field"><label>Mobile Number</label><input></div>
+<div class="field"><label>Email Address</label><input type="email"></div>
+<div class="field"><label>Gender</label><select><option>Male</option><option>Female</option><option>Other</option></select></div>
+<div class="field"><label>Date of Birth</label><input type="date"></div>
+<div class="field"><label>Time of Birth</label><input type="time"></div>
+<div class="field"><label>Language</label><select data-language-select><option value="">Select language</option></select></div>
+<div class="field"><label>Chart Type</label><select><option value="">Select chart type</option><option>North Indian</option><option>South Indian</option><option>East Indian</option></select></div>
+</div>
+<div class="field" style="margin-top:14px"><label>Birth Place</label><input id="birth_place" placeholder="Search city / place"></div>
+<div class="map-block" style="margin-top:14px">
+  <strong style="display:block;margin-bottom:8px">Search or pin accurate birth location</strong>
+  <div class="map-frame"><div id="birth-map"></div></div>
+  <div class="coord-grid">
+    <div class="field"><label>Latitude</label><input id="latitude" readonly></div>
+    <div class="field"><label>Longitude</label><input id="longitude" readonly></div>
+    <div class="field"><label>Timezone</label><input data-timezone-default readonly></div>
+  </div>
+</div>
+<button class="btn btn-primary" style="width:100%;margin-top:18px" type="button">Pay for Basic Horoscope — ₹499</button>
+</form>
+</div></div></div></section></main>
+
+
+<footer style="padding:26px 0 48px">
+  <div class="container footer">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="logo footer-logo">Jyotish <span class="accent">Mitra</span></a>
+        <p>Premium Vedic astrology for India — precise charts, instant delivery, and trusted presentation.</p>
+      </div>
+      <div>
+        <h4>Our Reports</h4>
+        <a href="product-mini.html">Mini Horoscope</a>
+        <a href="product-basic.html">Basic Horoscope</a>
+        <a href="product-professional.html">Professional Horoscope</a>
+        <a href="product-matchmaking.html">Match Making</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="blogs.html">Blogs</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-and-conditions.html">Terms & Conditions</a>
+        <a href="mailto:support@jyotishmitra.com">support@jyotishmitra.com</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+    <div class="copy">© 2026 JyotishMitra. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+
+<script>
+function attachMap(mapId, latId, lonId, placeId){
+  const mapEl = document.getElementById(mapId);
+  if (!mapEl || typeof L === 'undefined') return;
+  const latInput = document.getElementById(latId);
+  const lonInput = document.getElementById(lonId);
+  const placeInput = placeId ? document.getElementById(placeId) : null;
+  const map = L.map(mapId).setView([23.0225, 72.5714], 5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map);
+  let marker;
+  function setMarker(latlng){
+    if(marker){ marker.setLatLng(latlng); } else { marker = L.marker(latlng).addTo(map); }
+    latInput.value = latlng.lat.toFixed(6);
+    lonInput.value = latlng.lng.toFixed(6);
+  }
+  map.on('click', async function(e){
+    setMarker(e.latlng);
+    if (placeInput) {
+      try {
+        const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${e.latlng.lat}&lon=${e.latlng.lng}`);
+        const d = await r.json();
+        if (d && d.display_name) placeInput.value = d.display_name;
+      } catch (err) {}
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', function(){
+  attachMap('birth-map','latitude','longitude','birth_place');
+  attachMap('male-map','m_latitude','m_longitude','m_place');
+  attachMap('female-map','f_latitude','f_longitude','f_place');
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  populateLanguagesByProduct("basic");
+});
+</script>
+
+</body>
+</html>
