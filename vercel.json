@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/update-daily-zodiac",
+      "schedule": "5 0 * * *"
+    }
+  ]
+}
