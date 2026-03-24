@@ -7,8 +7,8 @@ export default async function handler(req, res) {
     const sign = (req.query.sign || "aries").toLowerCase();
 
     const validSigns = [
-      "aries", "taurus", "gemini", "cancer", "leo", "virgo",
-      "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces"
+      "aries","taurus","gemini","cancer","leo","virgo",
+      "libra","scorpio","sagittarius","capricorn","aquarius","pisces"
     ];
 
     if (!validSigns.includes(sign)) {
@@ -34,25 +34,28 @@ export default async function handler(req, res) {
       }
     );
 
-    const data = await response.json();
+    const raw = await response.json();
 
     if (!response.ok) {
       return res.status(400).json({
         error: "Astrology API error",
         status: response.status,
-        details: data
+        raw
       });
     }
 
+    const p = raw.prediction || raw;
+
     return res.status(200).json({
       sign,
-      prediction: data.prediction || "",
-      personal_life: data.personal_life || "",
-      profession: data.profession || "",
-      health: data.health || "",
-      emotions: data.emotions || "",
-      travel: data.travel || "",
-      luck: data.luck || ""
+      prediction: p.prediction || "",
+      personal_life: p.personal_life || "",
+      profession: p.profession || "",
+      health: p.health || "",
+      travel: p.travel || "",
+      luck: p.luck || "",
+      emotions: p.emotions || "",
+      raw
     });
   } catch (error) {
     return res.status(500).json({
