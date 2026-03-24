@@ -1,46 +1,24 @@
 export default async function handler(req, res) {
-  if (req.method !== "GET") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
-
   try {
     const sign = (req.query.sign || "aries").toLowerCase();
 
-    const validSigns = [
-      "aries","taurus","gemini","cancer","leo","virgo",
-      "libra","scorpio","sagittarius","capricorn","aquarius","pisces"
-    ];
-
-    if (!validSigns.includes(sign)) {
-      return res.status(400).json({ error: "Invalid zodiac sign" });
-    }
+    const auth = "Basic " + Buffer.from(
+      `${process.env.ASTROLOGY_USER_ID}:${process.env.ASTROLOGY_API_KEY}`
+    ).toString("base64");
 
     const response = await fetch(
       `https://json.astrologyapi.com/v1/sun_sign_prediction/daily/${sign}`,
       {
-        method: "POST",
+        method: "POST", // 🔥 MUST BE POST
         headers: {
-          "Authorization": "Basic " + Buffer.from(
-            `${process.env.ASTROLOGY_USER_ID}:${process.env.ASTROLOGY_API_KEY}`
-          ).toString("base64"),
-          "Content-Type": "application/json",
-          "Accept-Language": "en"
+          "Authorization": auth,
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify({})
+        body: JSON.stringify({}) // 🔥 REQUIRED
       }
     );
 
-    const raw = await response.json();
-
-    if (!response.ok) {
-      return res.status(400).json({
-        error: "Astrology API error",
-        details: raw
-      });
-    }
-
-    // Handle both API response formats
-    const data = raw.prediction || raw;
+    const data = await response.json();
 
     return res.status(200).json({
       sign,
@@ -51,13 +29,12 @@ export default async function handler(req, res) {
       travel: data.travel || "",
       luck: data.luck || "",
       emotions: data.emotions || "",
-      debug: raw
+      debug: data
     });
 
   } catch (error) {
     return res.status(500).json({
-      error: "Server error",
-      message: error.message
+      error: error.message
     });
   }
 }
