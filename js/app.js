@@ -1,4 +1,3 @@
-
 const PRODUCT_LANGUAGES = {
   mini: [
     ["en", "English"], ["hi", "Hindi"], ["bn", "Bengali"], ["mr", "Marathi"],
@@ -122,21 +121,35 @@ function attachPlaceAutocomplete(inputId, latId, lonId){
 async function openZodiacModal(sign, symbol, en, hi) {
   const overlay = document.getElementById('zodiacOverlay');
   if (!overlay) return;
+
   overlay.classList.add('open');
   document.getElementById('zodiacSymbol').textContent = symbol;
   document.getElementById('zodiacTitle').textContent = `${en} / ${hi}`;
   document.getElementById('zodiacLoader').style.display = 'block';
   document.getElementById('zodiacContent').style.display = 'none';
+
   try {
-    const res = await fetch(`api/rashifal-sign.js?sign=${encodeURIComponent(sign)}`);
+    const res = await fetch(`/api/rashifal-sign?sign=${encodeURIComponent(sign)}`);
     const data = await res.json();
-    document.getElementById('zodiacSummary').textContent = data.summary || 'Today carries steady useful energy.';
-    document.getElementById('zPersonal').textContent = data.personal_life || 'Good energy in relationships.';
-    document.getElementById('zProfession').textContent = data.profession || 'Work matters need focus.';
-    document.getElementById('zHealth').textContent = data.health || 'Take care of rest and routine.';
-    document.getElementById('zTravel').textContent = data.travel || 'Travel looks moderate.';
-    document.getElementById('zLuck').textContent = data.luck || 'Luck supports preparation.';
-    document.getElementById('zEmotion').textContent = data.emotions || 'Stay balanced and calm.';
+
+    if (!res.ok) {
+      throw new Error(data.error || 'Failed to fetch rashifal');
+    }
+
+    document.getElementById('zodiacSummary').textContent =
+      data.prediction || data.summary || 'Today carries steady useful energy.';
+    document.getElementById('zPersonal').textContent =
+      data.personal_life || 'Good energy in relationships.';
+    document.getElementById('zProfession').textContent =
+      data.profession || 'Work matters need focus.';
+    document.getElementById('zHealth').textContent =
+      data.health || 'Take care of rest and routine.';
+    document.getElementById('zTravel').textContent =
+      data.travel || 'Travel looks moderate.';
+    document.getElementById('zLuck').textContent =
+      data.luck || 'Luck supports preparation.';
+    document.getElementById('zEmotion').textContent =
+      data.emotions || 'Stay balanced and calm.';
   } catch (e) {
     document.getElementById('zodiacSummary').textContent = 'Unable to load live Rashifal right now.';
     document.getElementById('zPersonal').textContent = 'Focus on meaningful conversations.';
@@ -146,6 +159,7 @@ async function openZodiacModal(sign, symbol, en, hi) {
     document.getElementById('zLuck').textContent = 'Luck follows preparation.';
     document.getElementById('zEmotion').textContent = 'Stay calm and centered.';
   }
+
   document.getElementById('zodiacLoader').style.display = 'none';
   document.getElementById('zodiacContent').style.display = 'block';
 }
