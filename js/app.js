@@ -41,6 +41,7 @@ function buildSingleCarousel(trackId, interval = 2600) {
 
   let index = 0;
   const slides = track.children.length;
+
   const move = () => {
     track.style.transform = `translateX(-${index * 100}%)`;
   };
@@ -169,12 +170,22 @@ async function openZodiacModal(sign, symbol, en, hi) {
   document.getElementById("zodiacContent").style.display = "none";
 
   try {
-    const res = await fetch(`/api/rashifal-sign?sign=${encodeURIComponent(sign)}`);
+    const apiUrl = `/api/rashifal-sign?sign=${encodeURIComponent(sign)}&_t=${Date.now()}`;
+    const res = await fetch(apiUrl, {
+      method: "GET",
+      cache: "no-store",
+      headers: {
+        "Accept": "application/json"
+      }
+    });
+
     const data = await res.json();
 
     if (!res.ok) {
-      throw new Error(data.error || "Failed to fetch rashifal");
+      throw new Error(data.error || data.message || "Failed to fetch rashifal");
     }
+
+    console.log("Rashifal API response:", sign, data);
 
     document.getElementById("zodiacSummary").textContent =
       data.prediction || "Today carries steady useful energy.";
@@ -191,6 +202,7 @@ async function openZodiacModal(sign, symbol, en, hi) {
     document.getElementById("zEmotion").textContent =
       data.emotions || "Stay balanced and calm.";
   } catch (e) {
+    console.error("Rashifal fetch error:", sign, e);
     document.getElementById("zodiacSummary").textContent =
       "Unable to load live Rashifal right now.";
     document.getElementById("zPersonal").textContent =
